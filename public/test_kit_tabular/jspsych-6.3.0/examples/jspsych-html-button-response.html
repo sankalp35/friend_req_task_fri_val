@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="../jspsych.js"></script>
+    <script src="../plugins/jspsych-html-button-response.js"></script>
+    <script src="../plugins/jspsych-external-html.js"></script>
+    <link rel="stylesheet" href="../css/jspsych.css">
+  </head>
+  <body></body>
+  <script>
+
+  var timeline = [];
+
+  timeline.push({
+    type: 'html-button-response',
+    stimulus: '<p style="color: red; font-size: 48px; font-weight: bold;">GREEN</p>',
+    choices: ['Green', 'Blue', 'Red'],
+    prompt: "<p>What color is this word?</p>"
+  });
+
+  timeline.push({
+    type: 'external-html',
+    url: 'mental_health.html',
+    cont_btn: 'exitButton'
+  });
+
+
+  jsPsych.init({
+    timeline: timeline,
+    on_finish: function(){jsPsych.data.displayData();}
+  });
+
+  </script>
+</html>

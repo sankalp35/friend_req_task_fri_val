@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="jspsych-6.3.0/jspsych.js"></script>
+   <script src="/assets/javascripts/jatos.js"></script>
+    <script src="jspsych-6.3.0/plugins/jspsych-survey-multi-choice.js"></script>
+    <script src="jspsych-6.3.0/plugins/jspsych-instructions.js"></script>
+    <script src="jspsych-6.3.0/plugins/jspsych-external-html.js"></script>
+    <script src="jspsych-6.3.0/plugins/jspsych-fullscreen.js"></script>
+    <meta charset="utf-8" />
+    <script src="qs2_sg.js"></script> <!--SORCHA: IMPORT QUESTIONNAIRE SCRIPS HERE-->
+	<script src="jspsych-6.3.0/plugins/jspsych-survey-likert.js"></script>
+  <script src="jspsych-6.3.0/plugins/jspsych-survey-likert-table.js"></script>
+    <link rel="stylesheet" href="jspsych-6.3.0/css/jspsych.css"></link>
+  </head>
+  <body></body>
+  <script>
+
+  var timeline = [];
+
+//get into full screen mode at the start
+  timeline.push({
+    type: 'fullscreen',
+    fullscreen_mode: true,
+    on_finish:function(data) {
+      data.prolific_id = jatos.urlQueryParameters.PROLIFIC_PID;
+    }
+  });
+
+
+  var landing_page = {
+    type: 'instructions',
+    pages: [
+      'Welcome to the experiment! In this experiment you will answer some questionnaires which will take about 30 mins of your time. You first need to read the information sheet,<br>'+
+      'and give your consent to participate in this study. <br>'+
+      'Please press next to continue'
+    ],
+    show_clickable_nav: true,
+  }
+  timeline.push(landing_page);
+
+  //function to check info sheet checked
+  var info_check = function(elem) {
+    if (document.getElementById('infoSheetCheckbox').checked) {
+      return true;
+    }
+    else {
+      alert("If you wish to participate, you must check the box next to the statement 'I have read and understood this information.'");
+      return false;
+    }
+    return false;
+  };
+
+  // declare the block.
+  var info_block = {
+    type:'external-html',
+    url: "infoSheet.html",
+    cont_btn: "infoSheetButton",
+    check_fn: info_check,
+  };
+  timeline.push(info_block);
+
+  //consent form
+  var consent_check = function(elem) {
+    if (document.getElementById('consent1').checked && document.getElementById('consent2').checked &&
+  document.getElementById('consent3').checked &&
+  document.getElementById('consent4').checked &&
+  document.getElementById('consent5').checked &&
+  document.getElementById('consent6').checked &&
+  document.getElementById('consent7').checked &&
+  document.getElementById('consent8').checked){
+      return true;
+    }
+    else {
+      alert("If you wish to participate, you must check all boxes'");
+      return false;
+    }
+    return false;
+  };
+
+  // declare the block.
+  var consent_block = {
+    type:'external-html',
+    url: "consentForm.html",
+    cont_btn: "giveConsentButton",
+    check_fn: consent_check,
+  };
+  timeline.push(consent_block);
+
+
+  var instructions_task = {
+    type: 'instructions',
+    pages: [
+      'Thank you. The questionnaires will now presented. The entire task takes about 30 mins in total to complete.'
+    ],
+    show_clickable_nav: true,
+    on_start:function(){
+      document.body.style.backgroundColor = inst_bgcolor;
+
+    }
+  }
+
+// //SORCHA -- CALL YOUR QUESTIONNAIRES HERE, AFTER IMPORTING THEM ABOVE
+timeline.push(SHAPS());
+timeline.push(UCLA());
+timeline.push(BDI());
+timeline.push(LHS());
+timeline.push(AQ());
+timeline.push(RSE());
+timeline.push(SCS());
+timeline.push(OCIR());
+timeline.push(SNI());
+timeline.push(AMI());
+timeline.push(UPPSP());
+timeline.push(LSAanx());
+timeline.push(LSAavoid());
+timeline.push(repeatQ());
+timeline.push(customQ());
+
+
+// timeline.push(MDQ());
+
+
+
+
+// timeline.push(SELSA());
+// timeline.push(SAS());
+// //timeline.push(SOARS());
+
+// timeline.push(STICSA());
+//
+
+// timeline.push(RSE());
+// //timeline.push(customQ());
+
+jatos.onLoad(function(){
+  jsPsych.init({
+    timeline: timeline,
+    on_finish: function() {
+      jatos.endStudyAndRedirect("https://app.prolific.co/submissions/complete?cc=428297CE");
+    }
+  });
+})
+
+
+</script>
+</html>

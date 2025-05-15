@@ -1,0 +1,18 @@
+{
+  "name": "friend_request_task",
+  "version": "1.0.0",
+  "description": "friend request task online study",
+  "main": "cfd_array.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "sankalp",
+  "license": "ISC",
+  "dependencies": {
+    "browserify": "^17.0.0",
+    "jstat": "^1.9.5",
+    "mathjs": "^10.0.2",
+    "progressbar.js": "^1.1.0",
+    "watchify": "^3.11.1"
+  }
+}
