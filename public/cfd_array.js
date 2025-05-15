@@ -1299,20 +1299,31 @@ function cfd_array(design_matrix) {
   total_blocks = design_matrix.length + 1; //+1 for the practice block
   var nPhotos = 0;
   var photoCount = 0;
+  var photoCountHappy = 0;
+  var photoCountNeutral = 0;
   var j;
   var i;
   var index_selection = new Array();
   var face_selection = [];
   var face_selection_temp = [];
+  var face_val_container = []; //will hold either neutral or happy faces depending on block type
   for (j = 0; j < total_blocks; j++) {
     if (j == 0) {
-      nPhotos = 55;
+      nPhotos = 45;
     }
 
     if (design_matrix[j - 1] == 2 || design_matrix[j - 1] == 4) {
-      nPhotos = 25; //25 photos for sparse blocks
+      nPhotos = 45; //25 photos for sparse blocks
+      face_val_container = neutral_faces;
+      photoCount = photoCountNeutral;
+
+      //now it is safe to update condition specific photo counts
+      photoCountNeutral += nPhotos;
     } else {
-      nPhotos = 55;
+      nPhotos = 45;
+      face_val_container = happy_faces;
+      photoCount = photoCountHappy;
+      photoCountHappy += nPhotos;
     }
 
     if (j == 0) {
@@ -1321,7 +1332,7 @@ function cfd_array(design_matrix) {
       index_selection[j] = indices.slice(photoCount, photoCount + nPhotos); //[1,3,4].slice(1,3) yields [1,3]
     }
     for (i = 0; i < nPhotos; i++) {
-      face_selection_temp.push(neutral_faces[index_selection[j][i]]);
+      face_selection_temp.push(face_val_container[index_selection[j][i]]);
     }
     face_selection.push(face_selection_temp);
     face_selection_temp = []; //empty this container for each run
