@@ -118,7 +118,7 @@ function faceBlock(
     env_type = "HH";
   } else if (env == 4) {
     feedback_pseudor = [1, 1, 0, 0, 0, 0, 0, 0, 0, 0]; //out of 10, how many accept
-    iti = iti2;
+    iti = iti1;
     inst_text =
       "We will now enter a new club (" +
       block_no +
