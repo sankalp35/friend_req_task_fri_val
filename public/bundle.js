@@ -31,9 +31,8 @@ var first_scan_trigger;
 
 dm1 = jsPsych.randomization.shuffle([1, 2, 3, 4]);
 dm2 = jsPsych.randomization.shuffle([1, 2, 3, 4]);
-dm3 = jsPsych.randomization.shuffle([1, 2, 3, 4]);
 
-design_matrix = dm1.concat(dm2, dm3); //RANDOMIZED
+design_matrix = dm1.concat(dm2); //RANDOMIZED
 
 var total_blocks = design_matrix.length + 1; //plus 1 is added for the practice block
 //0th block will be the practice block
@@ -42,7 +41,7 @@ var full_screen_exits = 0;
 
 //initialising the faces array
 var faces = new Array();
-faces = cfd_array(design_matrix);
+faces = cfd_array_happy_neutral(design_matrix);
 console.log(faces);
 console.log(design_matrix);
 
@@ -273,7 +272,7 @@ var instructions_task = {
 //A wee little practice block here
 //env =1 , block_no = 0, 0th block is practice block
 practice_faceBlock = faceBlock(
-  1,
+  2,
   0,
   total_blocks - 1,
   ProgressBar,
