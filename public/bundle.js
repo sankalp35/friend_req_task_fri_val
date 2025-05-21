@@ -7,7 +7,7 @@
 //Get global parameters. Previously inputted through jatos, now declared here globally after the switch to pavlovia
 global.task_type = "ONLINE"; //MRI or ONLINE
 global.buttonInput = "OFF"; //ON for button box
-global.debugMode = "OFF"; // ON or OFF. Skips the initial part of the task
+global.debugMode = "ON"; // ON or OFF. Skips the initial part of the task
 global.practiceMode = "OFF"; //Starts practice block for MRI briefing
 
 //get URL parameters
@@ -472,7 +472,7 @@ qn_timeline_first_half = {
     }
   },
 };
-timeline.push(qn_timeline_first_half);
+//timeline.push(qn_timeline_first_half);
 
 //Signal the start of the main task
 var main_task_begin = {
